@@ -89,9 +89,9 @@ public:
     //inserts at a given position
     void insert(unsigned int position, T value){
         if(head != NULL){
-            if(position+1 == size()){push_back(value)}
+            if(position == size()+1){push_back(value);}
             else{
-                if(position+2 !>= size()){
+                if(position+2 >= size()){
                     Node *tempPtr = head;
                     Node *otherTempPtr;
                     Node *newPtr = new Node;
@@ -134,10 +134,10 @@ int main(){
 
     linkedList.push_front(1);
     linkedList.push_back(3);
+    //remeber lists starts at 0 so this is inserting at the second element
     linkedList.insert(1, 2);
     linkedList.push_back(4);
-    //remeber lists start at 0
-    linkedList.delete_place(1);
+    linkedList.delete_place(3);
     
     for(int i = 0; i < 3; ++i){
         std::cout << linkedList.get_value(i) << std::endl;
