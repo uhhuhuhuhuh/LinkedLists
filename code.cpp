@@ -28,30 +28,31 @@ public:
     }
 
     //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-    //Note: later add safe gaurds to prevent the user to delete an elemt out of list
     void delete_place(int position){
-        Node *tempPtr = head;
-        Node *otherTempPtr;
-        Node *releasePtr;
-        bool isOnlyOne = tempPtr->link == NULL;
+        if(position+1 <= size()){
+            Node *tempPtr = head;
+            Node *otherTempPtr;
+            bool isOnlyOne = tempPtr->link == NULL;
 
-        if(!isOnlyOne && position > 0){
-            for(int i = 0; i < position-1; ++i){
-                tempPtr = tempPtr->link;
+            if(!isOnlyOne && position > 0){
+                for(int i = 0; i < position-1; ++i){
+                    tempPtr = tempPtr->link;
+                }
+                otherTempPtr = tempPtr->link->link;
+                delete tempPtr->link;
+                tempPtr->link = otherTempPtr;
+            } else{
+                if(position == 0 && !isOnlyOne){
+                    head = head->link;
+                    delete tempPtr;
+                }else{
+                    head = NULL;
+                    end = NULL;
+                    delete tempPtr;
+                }
             }
-            otherTempPtr = tempPtr->link->link;
-            releasePtr = tempPtr->link;
-            delete releasePtr;
-            tempPtr->link = otherTempPtr;
         } else{
-            if(position == 0 && !isOnlyOne){
-                head = head->link;
-                delete tempPtr;
-            }else{
-                head = NULL;
-                end = NULL;
-                delete tempPtr;
-            }
+            std::cout << "Error: can't delete an element out of list" << std::endl;
         }
     }
 
@@ -132,7 +133,6 @@ int main(){
     linkedList.push_back(3);
     linkedList.insert(1, 2);
     linkedList.push_back(4);
-    std::cout << linkedList.size() << std::endl;
     linkedList.delete_place(1);
     
     for(int i = 0; i < 3; ++i){
