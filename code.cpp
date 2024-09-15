@@ -28,7 +28,7 @@ public:
     }
 
     //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-    void delete_place(int position){
+    void delete_place(unsigned int position){
         if(position+1 <= size()){
             Node *tempPtr = head;
             Node *otherTempPtr;
@@ -51,8 +51,6 @@ public:
                     delete tempPtr;
                 }
             }
-        } else{
-            std::cout << "Error: can't delete an element out of list" << std::endl;
         }
     }
 
@@ -89,19 +87,24 @@ public:
     }
 
     //inserts at a given position
-    void insert(int position, T value){
+    void insert(unsigned int position, T value){
         if(head != NULL){
-            Node *tempPtr = head;
-            Node *otherTempPtr;
-            Node *newPtr = new Node;
-            newPtr->value = value;
+            if(position+1 == size()){push_back(value)}
+            else{
+                if(position+2 !>= size()){
+                    Node *tempPtr = head;
+                    Node *otherTempPtr;
+                    Node *newPtr = new Node;
+                    newPtr->value = value;
 
-            for(int i = 0; i < position-1; ++i){
-                tempPtr = tempPtr->link;
+                    for(int i = 0; i < position-1; ++i){
+                        tempPtr = tempPtr->link;
+                    }
+                    otherTempPtr = tempPtr->link;
+                    tempPtr->link = newPtr;
+                    newPtr->link = otherTempPtr;
+                }
             }
-            otherTempPtr = tempPtr->link;
-            tempPtr->link = newPtr;
-            newPtr->link = otherTempPtr;
         }else{
             make_first(value);}
     }
