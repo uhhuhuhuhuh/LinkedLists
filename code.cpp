@@ -133,6 +133,7 @@ int main(){
     linkedList.push_back(3);
     linkedList.insert(1, 2);
     linkedList.push_back(4);
+    //remeber lists start at 0
     linkedList.delete_place(1);
     
     for(int i = 0; i < 3; ++i){
