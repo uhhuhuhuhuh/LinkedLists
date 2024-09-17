@@ -15,14 +15,14 @@ public:
             make_first(value);}
     }
 
-    //adds an elemtn to the end of a list
+    //adds an element to the last of a list
     void push_back(T value){
-        if(end != NULL){
+        if(last != NULL){
             Node *tempPtr = new Node;
             tempPtr->value = value;
             tempPtr->link = NULL;
-            end->link = tempPtr;
-            end = tempPtr;
+            last->link = tempPtr;
+            last = tempPtr;
         }else{
             make_first(value);}
     }
@@ -30,25 +30,30 @@ public:
     //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
     void delete_place(unsigned int position){
         if(position+1 <= size()){
-            Node *tempPtr = head;
-            Node *otherTempPtr;
-            bool isOnlyOne = tempPtr->link == NULL;
+            //ptr before the element you want to delete
+            Node *prevPtr = head;
+            //ptr after the element you want to delete
+            Node *afterPtr;
+            bool isOnlyOne = prevPtr->link == NULL;
 
             if(!isOnlyOne && position > 0){
+                //gets "prevPtr" up to position
                 for(int i = 0; i < position-1; ++i){
-                    tempPtr = tempPtr->link;
+                    prevPtr = prevPtr->link;
                 }
-                otherTempPtr = tempPtr->link->link;
-                delete tempPtr->link;
-                tempPtr->link = otherTempPtr;
+                afterPtr = prevPtr->link->link;
+                delete prevPtr->link;
+                prevPtr->link = afterPtr;
             } else{
                 if(position == 0 && !isOnlyOne){
+                    //does this is if is the user is deleteing the first element
                     head = head->link;
-                    delete tempPtr;
+                    delete prevPtr;
                 }else{
+                    //does this is if is the user is deleteing the first and only element
                     head = NULL;
-                    end = NULL;
-                    delete tempPtr;
+                    last = NULL;
+                    delete prevPtr;
                 }
             }
         }
@@ -89,20 +94,22 @@ public:
     //inserts at a given position
     void insert(unsigned int position, T value){
         if(head != NULL){
-            if(position == size()+1){push_back(value);}
+            //deos a check to see if user is trying to add an eleent to the last of the list
+            if(position == size()+2){push_back(value);}
             else{
-                if(position+2 >= size()){
-                    Node *tempPtr = head;
-                    Node *otherTempPtr;
-                    Node *newPtr = new Node;
-                    newPtr->value = value;
+                //does a check if user is inserting completely out of list
+                if(position < size()-3){
+                    Node *prevPtr = head;
+                    Node *afterPtr;
+                    Node *tempPtr = new Node;
+                    tempPtr->value = value;
 
                     for(int i = 0; i < position-1; ++i){
-                        tempPtr = tempPtr->link;
+                        prevPtr = prevPtr->link;
                     }
-                    otherTempPtr = tempPtr->link;
-                    tempPtr->link = newPtr;
-                    newPtr->link = otherTempPtr;
+                    afterPtr = prevPtr->link;
+                    prevPtr->link = tempPtr;
+                    tempPtr->link = afterPtr;
                 }
             }
         }else{
@@ -115,20 +122,22 @@ private:
         Node *link;
     };
 
-    //if push_back, push_front, ot insert is called and the size is 0 then call this function
+    //if push_back, push_front, or insert is called and the size is 0 then this funtion is called
     void make_first(int value){
         Node *tempPtr = new Node;
         tempPtr->value = value;
         tempPtr->link = head;
         head = tempPtr;
         head->link = NULL;
-        end = head;
+        last = head;
     }
 
     Node *head = NULL;
-    Node *end = NULL;
+    Node *last = NULL;
 };
 
+
+//demo of all the functions for LinkedList
 int main(){
     LinkedList<int> linkedList;
 
@@ -139,7 +148,7 @@ int main(){
     linkedList.push_back(4);
     linkedList.delete_place(3);
     
-    for(int i = 0; i < 3; ++i){
+    for(int i = 0; i < linkedList.size(); ++i){
         std::cout << linkedList.get_value(i) << std::endl;
     }
 
