@@ -61,17 +61,21 @@ public:
 
     //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
     //Note add safe gaurds incase tries to get an element out of the list
-    T get_value(T position){
-        Node *tempPtr = head;
+    T get_value(int position){
+        if(position+1 <= size()){
+            Node *tempPtr = head;
 
-        if(head != NULL){
-            for(int i = 0; i < position; ++i){
-                tempPtr = tempPtr->link;
+            if(head != NULL){
+                for(int i = 0; i < position; ++i){
+                    tempPtr = tempPtr->link;
+                }
+
+                return tempPtr->value;
+            }else{
+                return NULL;
             }
-
-            return tempPtr->value;
         }else{
-            return 0;
+            return NULL;
         }
     }
 
@@ -114,6 +118,14 @@ public:
             }
         }else{
             make_first(value);}
+    }
+
+    T *begin(){
+        return &head->value;
+    }
+
+    T *end(){
+        return &last->value;
     }
 
 private:
