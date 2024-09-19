@@ -129,7 +129,7 @@ public:
         return &last->value;
     }
 
-    /*You have to #include <functional> and do this if you want compatibilty with lamdas, but if you
+    /*You have to #include <functional> and do this if you want compatibilty with lambdas, but if you
     want to do it without #include <functional> or don't care about lambdas then do: void(*func)()  
     for the second parameter*/
     void foreach(T &element, const std::function<void()>& func){
