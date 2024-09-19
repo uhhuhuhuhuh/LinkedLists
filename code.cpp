@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <functional>
 
 template<typename T>
 class LinkedList{
@@ -128,6 +129,26 @@ public:
         return &last->value;
     }
 
+    /*You have to #include <functional> and do this if you want compatibilty with lamdas, but if you
+    want to do it without #include <functional> or don't care about lambdas then do: void(*func)()  
+    for the second parameter*/
+    void foreach(T &element, const std::function<void()>& func){
+        int i = 0;
+        for(i = 0; i < size(); ++i){
+            element = get_value(i);
+            func();
+        }
+    }
+
+    //if you read the comments for the first foreach and also want to replace the second parameter then do this: void(*func)(T)
+    void foreach(T &element, const std::function<void(T)>& func){
+        int i = 0;
+        for(i = 0; i < size(); ++i){
+            element = get_value();
+            func(element);
+        }
+    }
+
 private:
     struct Node{
         T value;
@@ -159,10 +180,11 @@ int main(){
     linkedList.insert(1, 2);
     linkedList.push_back(4);
     linkedList.delete_place(3);
+
+    int element;
     
-    for(int i = 0; i < linkedList.size(); ++i){
-        std::cout << linkedList.get_value(i) << std::endl;
-    }
+    linkedList.foreach(element, [&](){std::cout << element << std::endl;});
+    std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
 
     std::cin.get();
 }
