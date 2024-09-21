@@ -65,24 +65,26 @@ namespace LL{
             }
         }
 
+        void replace(T value, unsigned int position){
+            Node *tempPtr = head;
+
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
+            }
+
+            tempPtr->value = value;
+        }
+
         //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
         //Note add safe gaurds incase tries to get an element out of the list
         T get_value(int position){
-            if(position+1 <= size()){
-                Node *tempPtr = head;
+            Node *tempPtr = head;
 
-                if(head != NULL){
-                    for(int i = 0; i < position; ++i){
-                        tempPtr = tempPtr->link;
-                    }
-
-                    return tempPtr->value;
-                }else{
-                    return NULL;
-                }
-            }else{
-                return NULL;
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
             }
+
+            return tempPtr->value;
         }
 
         //returns size of list
