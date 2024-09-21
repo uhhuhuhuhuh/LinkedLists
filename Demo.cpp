@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <functional>
 #include "LinkedListCode.h"
 
 
@@ -11,12 +10,14 @@ int main(){
     linkedList.push_front(1);
     linkedList.push_back(3);
     //remeber lists starts at 0 so this is inserting at the second element
+    //also insert is placing the value 2 at the second position then moving the previous value bak to the third position
     linkedList.insert(1, 2);
     linkedList.push_back(4);
     linkedList.delete_place(3);
 
     int element;
     
+    //the second parameter is a lambda
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
     std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
 
