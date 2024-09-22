@@ -156,6 +156,14 @@ namespace LL{
             }
         }
 
+        void clear(){
+            int listSize = size();
+
+            for(int i = 0; i < listSize; ++i){
+                delete_place(0);
+            }
+        }
+
     private:
         struct Node{
             T value;

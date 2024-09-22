@@ -21,6 +21,8 @@ int main(){
     //the second parameter is a lambda
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
     std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
+    linkedList.clear();
+    std::cout << "Now the list is empty, the size of the list is " << linkedList.size() << std::endl;
 
     std::cin.get();
 }
