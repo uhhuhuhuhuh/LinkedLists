@@ -6,7 +6,7 @@
 //demo of all the functions for LinkedList
 int main(){
     LL::LinkedList<int> linkedList;
-    LL::LinkedList<int> showOffBrackets({0, 1, 2});
+    LL::LinkedList<int> showOffCurlyBraces({0, 1, 2});
 
     linkedList.push_front(1);
     linkedList.push_back(4);
@@ -38,7 +38,7 @@ int main(){
     linkedList.clear();
     std::cout << "Now the list is empty, the size of the list is " << linkedList.size() << std::endl;
     std::cout << "Also here are the elements of another list" << std::endl;
-    showOffBrackets.foreach(element, [&](){std::cout << element << std::endl;});
+    showOffCurlyBraces.foreach(element, [&](){std::cout << element << std::endl;});
     /* ouput:
         0
         1
