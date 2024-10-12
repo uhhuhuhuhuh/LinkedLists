@@ -11,7 +11,7 @@ namespace LL{
     class LinkedList{
     public:
         //adds an element to the front of a list
-        void push_front(T value){
+        void push_front(const T value){
             if(head != NULL){
                 Node *tempPtr = head;
                 tempPtr->value = value;
@@ -22,7 +22,7 @@ namespace LL{
         }
 
         //adds an element to the last of a list
-        void push_back(T value){
+        void push_back(const T value){
             if(last != NULL){
             Node *tempPtr = new Node;
                 tempPtr->value = value;
@@ -34,7 +34,7 @@ namespace LL{
         }
 
         //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-        void delete_place(unsigned int position){
+        void delete_place(const unsigned int position){
             if(position+1 <= size()){
                 //ptr before the element you want to delete
                 Node *prevPtr = head;
@@ -65,19 +65,7 @@ namespace LL{
             }
         }
 
-        void replace(T value, unsigned int position){
-            Node *tempPtr = head;
-
-            for(int i = 0; i < position; ++i){
-                tempPtr = tempPtr->link;
-            }
-
-            tempPtr->value = value;
-        }
-
-        //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-        //Note add safe gaurds incase tries to get an element out of the list
-        T get_value(int position){
+        T& operator[](const unsigned int position){
             Node *tempPtr = head;
 
             for(int i = 0; i < position; ++i){
@@ -104,7 +92,7 @@ namespace LL{
         }
 
         //inserts at a given position
-        void insert(unsigned int position, T value){
+        void insert(const unsigned int position, const T value){
             if(head != NULL){
                 //deos a check to see if user is trying to add an eleent to the last of the list
                 if(position == size()+2){push_back(value);}
@@ -151,7 +139,7 @@ namespace LL{
         void foreach(T &element, const std::function<void(T)>& func){
             int i = 0;
             for(i = 0; i < size(); ++i){
-                element = get_value();
+                element = get_value(i);
                 func(element);
             }
         }
@@ -161,6 +149,15 @@ namespace LL{
 
             for(int i = 0; i < listSize; ++i){
                 delete_place(0);
+            }
+        }
+
+        void replace_all(const T &value){
+            int listSize = size();
+
+            int i = 0;
+            for(i = 0; i < size(); ++i){
+                get_value_ref(i) = value;
             }
         }
 
@@ -178,6 +175,26 @@ namespace LL{
             head = tempPtr;
             head->link = NULL;
             last = head;
+        }
+
+        T get_value(const unsigned int position){
+            Node *tempPtr = head;
+
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
+            }
+
+            return tempPtr->value;
+        }
+
+        T& get_value_ref(const unsigned int position){
+            Node *tempPtr = head;
+
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
+            }
+
+            return tempPtr->value;
         }
 
         Node *head = NULL;

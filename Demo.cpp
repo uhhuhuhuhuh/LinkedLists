@@ -14,13 +14,16 @@ int main(){
     linkedList.insert(1, 2);
     linkedList.push_back(4);
     linkedList.delete_place(3);
-    linkedList.replace(3, 2);
+    linkedList[2] = 3;
 
     int element;
     
     //the second parameter is a lambda
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
     std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
+    std::cout << "However I replaced all the items in the list with the value 5!" << std::endl;
+    linkedList.replace_all(5);
+    linkedList.foreach(element, [&](){std::cout << element << std::endl;});
     linkedList.clear();
     std::cout << "Now the list is empty, the size of the list is " << linkedList.size() << std::endl;
 
