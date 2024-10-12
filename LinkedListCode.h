@@ -17,33 +17,61 @@ namespace LL{
                 push_back(element);
             }
         }
+        LinkedList(const LL::LinkedList<T> &other){
+            clear();
+            for(int i = 0; i < other.size; ++i){
+                Node *tempPtr = other.head;
+
+                for(int j = 0; j < i; ++j){
+                    tempPtr = tempPtr->link;
+                }
+
+                push_back(tempPtr->value);
+            }
+        }
+
+        int size = 0;
 
         //adds an element to the front of a list
-        void push_front(const T value){
+        void push_front(const T &value){
             if(head != NULL){
-                Node *tempPtr = head;
+                Node *tempPtr = new Node;
                 tempPtr->value = value;
                 tempPtr->link = head;
                 head = tempPtr;
+                ++size;
             }else{
                 make_first(value);}
         }
 
         //adds an element to the last of a list
-        void push_back(const T value){
+        void push_back(const T &value){
             if(last != NULL){
-            Node *tempPtr = new Node;
+                Node *tempPtr = new Node;
                 tempPtr->value = value;
                 tempPtr->link = NULL;
                 last->link = tempPtr;
                 last = tempPtr;
+                ++size;
             }else{
             make_first(value);}
         }
 
+        void repeat_push_front(const T &value, const unsigned int &repeat){
+            for(unsigned int i = 0;i < repeat; ++i){
+                push_front(value);
+            }
+        }
+        
+        void repeat_push_back(const T &value, const unsigned int &repeat){
+            for(unsigned int i = 0;i < repeat; ++i){
+                push_back(value);
+            }
+        }
+
         //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-        void delete_place(const unsigned int position){
-            if(position+1 <= size()){
+        void delete_place(const unsigned int &position){
+            if(position+1 <= size){
                 //ptr before the element you want to delete
                 Node *prevPtr = head;
                 //ptr after the element you want to delete
@@ -58,22 +86,26 @@ namespace LL{
                     afterPtr = prevPtr->link->link;
                     delete prevPtr->link;
                     prevPtr->link = afterPtr;
+
+                    --size;
                 } else{
                     if(position == 0 && !isOnlyOne){
                         //does this is if is the user is deleteing the first element
                         head = head->link;
                         delete prevPtr;
+                        --size;
                     }else{
                         //does this is if is the user is deleteing the first and only element
                         head = NULL;
                         last = NULL;
                         delete prevPtr;
+                        --size;
                     }
                 }
             }
         }
 
-        T& operator[](const unsigned int position){
+        T& operator[](const unsigned int &position){
             Node *tempPtr = head;
 
             for(int i = 0; i < position; ++i){
@@ -84,7 +116,7 @@ namespace LL{
         }
 
         //returns size of list
-        int size(){
+        int recount_size(){
             Node *tempPtr = head;
 
             if(head != NULL){
@@ -93,20 +125,22 @@ namespace LL{
                     tempPtr = tempPtr->link;
                     ++i;
                 }
+                size = i;
                 return i;
             }else{
+                size = 0;
                 return 0;
             }
         }
 
         //inserts at a given position
-        void insert(const unsigned int position, const T value){
+        void insert(const unsigned int &position, const T &value){
             if(head != NULL){
                 //deos a check to see if user is trying to add an eleent to the last of the list
-                if(position == size()+2){push_back(value);}
+                if(position == size+2){push_back(value);}
                 else{
                     //does a check if user is inserting completely out of list
-                    if(position < size()-3){
+                    if(position < size-3){
                         Node *prevPtr = head;
                         Node *afterPtr;
                         Node *tempPtr = new Node;
@@ -118,6 +152,7 @@ namespace LL{
                         afterPtr = prevPtr->link;
                         prevPtr->link = tempPtr;
                         tempPtr->link = afterPtr;
+                        ++size;
                     }
                 }
             }else{
@@ -137,7 +172,7 @@ namespace LL{
         for the second parameter*/
         void foreach(T &element, const std::function<void()>& func){
             int i = 0;
-            for(i = 0; i < size(); ++i){
+            for(i = 0; i < size; ++i){
                 element = get_value(i);
                 func();
             }
@@ -146,25 +181,25 @@ namespace LL{
         //if you read the comments for the first foreach and also want to replace the second parameter then do this: void(*func)(T)
         void foreach(T &element, const std::function<void(T)>& func){
             int i = 0;
-            for(i = 0; i < size(); ++i){
+            for(i = 0; i < size; ++i){
                 element = get_value(i);
                 func(element);
             }
         }
 
         void clear(){
-            int listSize = size();
+            int listsize = size;
 
-            for(int i = 0; i < listSize; ++i){
+            for(int i = 0; i < listsize; ++i){
                 delete_place(0);
             }
         }
 
         void replace_all(const T &value){
-            int listSize = size();
+            int listsize = size;
 
             int i = 0;
-            for(i = 0; i < size(); ++i){
+            for(i = 0; i < listsize; ++i){
                 get_value_ref(i) = value;
             }
         }
@@ -172,12 +207,13 @@ namespace LL{
         //satic stuff
 
         static void CopyOver(LinkedList<T> &copyTo, LinkedList<T> &copyFrom){
-            int size = copyFrom.size();
+            int size = copyFrom.size;
             copyTo.clear();
             T element;
             for(int i = 0; i < size; ++i){
                 element = copyFrom[i];
-                copyTo.push_back(element);
+                element = copyFrom[i];
+                copyTo.push_back(copyFrom[i]);
             }
         }
 
@@ -195,6 +231,7 @@ namespace LL{
             head = tempPtr;
             head->link = NULL;
             last = head;
+            ++size;
         }
 
         T get_value(const unsigned int position){

@@ -7,7 +7,6 @@
 int main(){
     LL::LinkedList<int> linkedList;
     LL::LinkedList<int> showOffCurlyBraces({0, 1, 2});
-    LL::LinkedList<int> copyList;
 
     linkedList.push_front(1);
     linkedList.push_back(4);
@@ -17,7 +16,7 @@ int main(){
     linkedList.push_back(4);
     linkedList.delete_place(3);
     linkedList[2] = 3;
-    LL::LinkedList<int>::CopyOver(copyList, linkedList);
+    LL::LinkedList<int> copyList = linkedList;
 
     int element;
     
@@ -28,7 +27,7 @@ int main(){
         2
         3
     */
-    std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
+    std::cout << "Also the size of that list was " << linkedList.size << " elements long!" << std::endl;
     std::cout << "However I replaced all the items in the list with the value 5!" << std::endl;
     linkedList.replace_all(5);
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
@@ -38,7 +37,7 @@ int main(){
         5
     */
     linkedList.clear();
-    std::cout << "Now the list is empty, the size of the list is " << linkedList.size() << std::endl;
+    std::cout << "Now the list is empty, the size of the list is " << linkedList.size << std::endl;
     std::cout << "Also here are the elements of another list" << std::endl;
     showOffCurlyBraces.foreach(element, [&](){std::cout << element << std::endl;});
     /* ouput:
@@ -49,6 +48,17 @@ int main(){
     std::cout << "And another one" << std::endl;
     copyList.foreach(element, [&](){std::cout << element << std::endl;});
     /* ouput:
+        1
+        2
+        3
+    */
+
+    copyList.repeat_push_front(5,2);
+    std::cout << "But now there are 2 more items with a value of 5!" << std::endl;
+    copyList.foreach(element, [&](){std::cout << element << std::endl;});
+    /* ouput:
+        5
+        5
         1
         2
         3
