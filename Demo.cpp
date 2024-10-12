@@ -6,7 +6,7 @@
 //demo of all the functions for LinkedList
 int main(){
     LL::LinkedList<int> linkedList;
-    LL::LinkedList<int> showOffCurlyBraces({0, 1, 2});
+    LL::LinkedList<int> showOffCurlyBraces = {0, 1, 2};
 
     linkedList.push_front(1);
     linkedList.push_back(4);
