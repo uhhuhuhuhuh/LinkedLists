@@ -6,6 +6,7 @@
 //demo of all the functions for LinkedList
 int main(){
     LL::LinkedList<int> linkedList;
+    LL::LinkedList<int> showOffBrackets({0, 1, 2});
 
     linkedList.push_front(1);
     linkedList.push_back(4);
@@ -20,12 +21,28 @@ int main(){
     
     //the second parameter is a lambda
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
+    /* ouput:
+        1
+        2
+        3
+    */
     std::cout << "Also the size of that list was " << linkedList.size() << " elements long!" << std::endl;
     std::cout << "However I replaced all the items in the list with the value 5!" << std::endl;
     linkedList.replace_all(5);
     linkedList.foreach(element, [&](){std::cout << element << std::endl;});
+    /* ouput:
+        5
+        5
+        5
+    */
     linkedList.clear();
     std::cout << "Now the list is empty, the size of the list is " << linkedList.size() << std::endl;
-
+    std::cout << "Also here are the elements of another list" << std::endl;
+    showOffBrackets.foreach(element, [&](){std::cout << element << std::endl;});
+    /* ouput:
+        0
+        1
+        2
+    */
     std::cin.get();
 }

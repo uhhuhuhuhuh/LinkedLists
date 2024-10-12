@@ -10,6 +10,15 @@ namespace LL{
     template<typename T>
     class LinkedList{
     public:
+        //Constructors
+        LinkedList() = default;
+        LinkedList(std::initializer_list<T> init){
+            for(T element : init){
+                push_back(element);
+            }
+        }
+
+
         //adds an element to the front of a list
         void push_front(const T value){
             if(head != NULL){
