@@ -57,20 +57,20 @@ namespace LL{
             make_first(value);}
         }
 
-        void repeat_push_front(const T &value, const unsigned int &repeat){
+        void repeat_push_front(const T &value, unsigned int repeat){
             for(unsigned int i = 0;i < repeat; ++i){
                 push_front(value);
             }
         }
         
-        void repeat_push_back(const T &value, const unsigned int &repeat){
+        void repeat_push_back(const T &value, unsigned int repeat){
             for(unsigned int i = 0;i < repeat; ++i){
                 push_back(value);
             }
         }
 
         //if position is higher then the size of the LinkedList, the compiler will give a segmentation fault error
-        void delete_place(const unsigned int &position){
+        void delete_place(unsigned int position){
             if(position+1 <= size){
                 //ptr before the element you want to delete
                 Node *prevPtr = head;
@@ -105,16 +105,6 @@ namespace LL{
             }
         }
 
-        T& operator[](const unsigned int &position){
-            Node *tempPtr = head;
-
-            for(int i = 0; i < position; ++i){
-                tempPtr = tempPtr->link;
-            }
-
-            return tempPtr->value;
-        }
-
         //returns size of list
         int recount_size(){
             Node *tempPtr = head;
@@ -134,7 +124,7 @@ namespace LL{
         }
 
         //inserts at a given position
-        void insert(const unsigned int &position, const T &value){
+        void insert(unsigned int position, const T &value){
             if(head != NULL){
                 //deos a check to see if user is trying to add an eleent to the last of the list
                 if(position == size+2){push_back(value);}
@@ -204,16 +194,58 @@ namespace LL{
             }
         }
 
+        bool is_contain(const T &value){
+            for(int i = 0; i < size; ++i){
+                if(get_value(i) == value){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Operators:
+        
+        T& operator[](const unsigned int &position){
+            Node *tempPtr = head;
+
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
+            }
+
+            return tempPtr->value;
+        }
+
+        bool operator==(const LL::LinkedList<T> &other){
+            if(other.size != size)
+                return false;
+
+            for(int i = 0; i < other.size; ++i){
+                if(get_value(i) != get_value_of_other(i, other.head))
+                    return false;
+            }
+
+            return true;
+        }
+
+        bool operator!=(const LL::LinkedList<T> &other){
+            if(other.size != size)
+                return true;
+
+            for(int i = 0; i < other.size; ++i){
+                if(get_value(i) != get_value_of_other(i, other.head))
+                    return true;
+            }
+
+            return false;
+        }
+
         //satic stuff
 
         static void CopyOver(LinkedList<T> &copyTo, LinkedList<T> &copyFrom){
             int size = copyFrom.size;
             copyTo.clear();
-            T element;
             for(int i = 0; i < size; ++i){
-                element = copyFrom[i];
-                element = copyFrom[i];
-                copyTo.push_back(copyFrom[i]);
+                copyTo.push_back(get_value_of_other(i, copyFrom.head));
             }
         }
 
@@ -236,6 +268,16 @@ namespace LL{
 
         T get_value(const unsigned int position){
             Node *tempPtr = head;
+
+            for(int i = 0; i < position; ++i){
+                tempPtr = tempPtr->link;
+            }
+
+            return tempPtr->value;
+        }
+
+        T get_value_of_other(const unsigned int position, Node* otherHead){
+            Node *tempPtr = otherHead;
 
             for(int i = 0; i < position; ++i){
                 tempPtr = tempPtr->link;
