@@ -4,8 +4,8 @@ Linked List's variables:
   size = the size of your list
 
 Linked List's functions:
-
   1.push_back = adds an element to the end of the list
+  
   2.push_front = adds an element to the front of the list
   3.insert = adds an element at a given index / position
   4.delete_place = removes an given element from the list(to select an element to delete you give the index of the element)    (automaticly deletes the item from the ram)
