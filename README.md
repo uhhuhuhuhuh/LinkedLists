@@ -3,7 +3,8 @@ If you want the LinkedList class then select LinkedList.h file and hit the copy 
 Linked List's variables:
   size = the size of your list
 
-Linked List's functions
+Linked List's functions:
+
   1.push_back = adds an element to the end of the list
   2.push_front = adds an element to the front of the list
   3.insert = adds an element at a given index / position
