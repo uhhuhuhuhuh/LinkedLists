@@ -18,7 +18,6 @@ namespace LL{
             }
         }
 
-
         //adds an element to the front of a list
         void push_front(const T value){
             if(head != NULL){
@@ -167,6 +166,18 @@ namespace LL{
             int i = 0;
             for(i = 0; i < size(); ++i){
                 get_value_ref(i) = value;
+            }
+        }
+
+        //satic stuff
+
+        static void CopyOver(LinkedList<T> &copyTo, LinkedList<T> &copyFrom){
+            int size = copyFrom.size();
+            copyTo.clear();
+            T element;
+            for(int i = 0; i < size; ++i){
+                element = copyFrom[i];
+                copyTo.push_back(element);
             }
         }
 

@@ -7,6 +7,7 @@
 int main(){
     LL::LinkedList<int> linkedList;
     LL::LinkedList<int> showOffCurlyBraces({0, 1, 2});
+    LL::LinkedList<int> copyList;
 
     linkedList.push_front(1);
     linkedList.push_back(4);
@@ -16,6 +17,7 @@ int main(){
     linkedList.push_back(4);
     linkedList.delete_place(3);
     linkedList[2] = 3;
+    LL::LinkedList<int>::CopyOver(copyList, linkedList);
 
     int element;
     
@@ -44,5 +46,13 @@ int main(){
         1
         2
     */
+    std::cout << "And another one" << std::endl;
+    copyList.foreach(element, [&](){std::cout << element << std::endl;});
+    /* ouput:
+        1
+        2
+        3
+    */
+
     std::cin.get();
 }
