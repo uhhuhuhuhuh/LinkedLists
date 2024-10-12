@@ -150,11 +150,11 @@ namespace LL{
         }
 
         T *begin(){
-            return &head->value;
+            return &head;
         }
 
         T *end(){
-            return &last->value;
+            return &last;
         }
 
         /*You have to #include <functional> and do this if you want compatibilty with lambdas, but if you
