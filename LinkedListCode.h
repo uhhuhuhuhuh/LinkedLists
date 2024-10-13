@@ -29,6 +29,9 @@ namespace LL{
                 push_back(tempPtr->value);
             }
         }
+        ~LinkedList(){
+            clear();
+        }
 
         int size = 0;
 
@@ -324,6 +327,9 @@ namespace LL{
 
                 push_back(tempPtr->value);
             }
+        }
+        ~CsLinkedList(){
+            clear();
         }
 
         int size = 0;
