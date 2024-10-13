@@ -31,6 +31,8 @@ namespace LL{
         }
         ~LinkedList(){
             clear();
+            delete head;
+            delete last;
         }
 
         int size = 0;
@@ -330,6 +332,8 @@ namespace LL{
         }
         ~CsLinkedList(){
             clear();
+            delete head;
+            delete last;
         }
 
         int size = 0;
