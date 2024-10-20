@@ -19,4 +19,5 @@ Linked List's functions:
 Linked List's supported operations:
   1. [] = returns the value of a given index in the brackets
   2.  == = returns true if two given lists have the same size and same value for the same index
-  3.  != = reutrn true if the two given lists have different size or different values for the same index
+  3.  != = returns true if the two given lists have different size or different values for the same index
+  4.  = = assings a list value based off another list or a with curly braces
